@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ziperr?? T-T</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        /* ===== RESET & BASE ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #0a0a0f;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* ===== ANIMATED BACKGROUND ===== */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(168, 85, 247, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(59, 130, 246, 0.06) 0%, transparent 40%),
+                radial-gradient(circle at 50% 80%, rgba(236, 72, 153, 0.05) 0%, transparent 40%);
+            z-index: 0;
+        }
+
+        .particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: rgba(168, 85, 247, 0.3);
+            border-radius: 50%;
+            animation: float-particle 20s infinite linear;
+        }
+
+        .particle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; width: 6px; height: 6px; }
+        .particle:nth-child(2) { left: 85%; top: 60%; animation-delay: -3s; width: 3px; height: 3px; }
+        .particle:nth-child(3) { left: 30%; top: 80%; animation-delay: -7s; width: 5px; height: 5px; }
+        .particle:nth-child(4) { left: 70%; top: 15%; animation-delay: -12s; width: 4px; height: 4px; }
+        .particle:nth-child(5) { left: 50%; top: 50%; animation-delay: -17s; width: 7px; height: 7px; background: rgba(236, 72, 153, 0.2); }
+
+        @keyframes float-particle {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+            25% { transform: translate(30px, -40px) scale(1.2); opacity: 0.8; }
+            50% { transform: translate(-20px, -80px) scale(0.8); opacity: 0.5; }
+            75% { transform: translate(40px, -30px) scale(1.1); opacity: 0.7; }
+            100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+        }
+
+        /* ===== MAIN CARD ===== */
+        .dashboard {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 1100px;
+            background: rgba(12, 12, 20, 0.75);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-radius: 40px;
+            padding: 32px 38px 28px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 40px 80px rgba(0, 0, 0, 0.7), 0 0 0 1px rgba(168, 85, 247, 0.06) inset;
+        }
+
+        .dashboard::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 40px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), transparent 40%, transparent 60%, rgba(168, 85, 247, 0.08));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        /* ===== HEADER ===== */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 16px 24px;
+            margin-bottom: 30px;
+        }
+
+        .profile-wrap {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .avatar {
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background-image: url('https://ziperr-img.lovable.app/i/osczvn7o.jpg');
+            background-size: cover;
+            background-position: center;
+            border: 2.5px solid #a855f7;
+            box-shadow: 0 0 0 6px rgba(168, 85, 247, 0.10), 0 8px 24px rgba(0,0,0,0.5);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05);
+            border-color: #c084fc;
+            box-shadow: 0 0 0 8px rgba(168, 85, 247, 0.15), 0 8px 30px rgba(168, 85, 247, 0.2);
+        }
+
+        .profile-text h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #f1f5f9;
+            letter-spacing: -0.3px;
+            background: linear-gradient(135deg, #e8e0ff, #c4b5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .profile-text .role {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(168, 85, 247, 0.12);
+            padding: 3px 14px 3px 10px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #c084fc;
+            border: 1px solid rgba(168, 85, 247, 0.12);
+            letter-spacing: 0.3px;
+            margin-top: 2px;
+        }
+
+        .profile-text .role i {
+            font-size: 0.5rem;
+            color: #a855f7;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(34, 197, 94, 0.08);
+            padding: 6px 18px 6px 14px;
+            border-radius: 40px;
+            border: 1px solid rgba(34, 197, 94, 0.12);
+            font-size: 0.8rem;
+            color: #86efac;
+        }
+
+        .status-badge .dot {
+            width: 8px;
+            height: 8px;
+            background: #4ade80;
+            border-radius: 50%;
+            animation: pulse-dot 1.8s ease-in-out infinite;
+            box-shadow: 0 0 12px rgba(74, 222, 128, 0.3);
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.4; transform: scale(0.7); }
+        }
+
+        /* ===== HERO / STATEMENT (DENGAN BANNER) ===== */
+        .hero {
+            background: rgba(0, 0, 0, 0.25);
+            border-radius: 24px;
+            padding: 26px 32px;
+            margin-bottom: 34px;
+            border-left: 4px solid #a855f7;
+            backdrop-filter: blur(4px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* BANNER GAMBAR DI ATAS TEKS */
+        .banner-image-container {
+            width: 100%;
+            height: auto;
+            max-height: 400px;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-bottom: 24px; /* Jarak antara banner dengan teks */
+            border: 1px solid rgba(255,255,255,0.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        .banner-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Menjaga aspek rasio gambar agar tidak gepeng */
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        .banner-image-container:hover img {
+            transform: scale(1.02); /* Efek zoom tipis saat hover */
+        }
+
+        .hero-content h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(135deg, #e8e0ff, #a78bfa, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 8px;
+        }
+
+        .hero-content h1 .highlight {
+            background: linear-gradient(135deg, #f472b6, #a855f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            color: #c8cdd9;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            max-width: 850px;
+            font-weight: 400;
+        }
+
+        .hero-content p i {
+            color: #f472b6;
+            margin: 0 4px;
+        }
+
+        /* ===== GRID BUTTONS ===== */
+        .btn-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(195px, 1fr));
+            gap: 18px;
+            margin-bottom: 28px;
+        }
+
+        .btn-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 14px 20px;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(4px);
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-decoration: none;
+            color: #f1f5f9;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            min-height: 130px;
+            cursor: pointer;
+            gap: 6px;
+        }
+
+        .btn-card::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 24px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(168, 85, 247, 0.15), transparent 50%, rgba(168, 85, 247, 0.05));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s;
+            pointer-events: none;
+        }
+
+        .btn-card:hover::before { opacity: 1; }
+        .btn-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            background: rgba(168, 85, 247, 0.07);
+            border-color: rgba(168, 85, 247, 0.15);
+            box-shadow: 0 20px 40px -12px rgba(168, 85, 247, 0.2), 0 0 0 1px rgba(168, 85, 247, 0.08) inset;
+        }
+        .btn-card:active { transform: translateY(-2px) scale(0.98); }
+
+        .btn-card .icon-wrap {
+            width: 56px;
+            height: 56px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            background: rgba(168, 85, 247, 0.06);
+            margin-bottom: 8px;
+            transition: all 0.3s;
+            border: 1px solid rgba(168, 85, 247, 0.04);
+        }
+        .btn-card:hover .icon-wrap {
+            background: rgba(168, 85, 247, 0.12);
+            border-color: rgba(168, 85, 247, 0.1);
+            transform: scale(1.05);
+        }
+        .btn-card i {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #c084fc, #8b5cf6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            transition: all 0.3s;
+        }
+        .btn-card:hover i { transform: scale(1.1); }
+
+        .btn-card .btn-label {
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.2px;
+            color: #e8edf5;
+        }
+        .btn-card .btn-sub {
+            font-size: 0.7rem;
+            color: #8a8fa3;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+        }
+
+        .btn-card:nth-child(2) .icon-wrap { background: rgba(59, 130, 246, 0.06); border-color: rgba(59, 130, 246, 0.04); }
+        .btn-card:nth-child(2):hover .icon-wrap { background: rgba(59, 130, 246, 0.12); border-color: rgba(59, 130, 246, 0.1); }
+        .btn-card:nth-child(2) i { background: linear-gradient(135deg, #60a5fa, #3b82f6); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .btn-card:nth-child(3) .icon-wrap { background: rgba(236, 72, 153, 0.06); border-color: rgba(236, 72, 153, 0.04); }
+        .btn-card:nth-child(3):hover .icon-wrap { background: rgba(236, 72, 153, 0.12); border-color: rgba(236, 72, 153, 0.1); }
+        .btn-card:nth-child(3) i { background: linear-gradient(135deg, #f472b6, #ec4899); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        .btn-card:nth-child(4) .icon-wrap { background: rgba(34, 211, 238, 0.06); border-color: rgba(34, 211, 238, 0.04); }
+        .btn-card:nth-child(4):hover .icon-wrap { background: rgba(34, 211, 238, 0.12); border-color: rgba(34, 211, 238, 0.1); }
+        .btn-card:nth-child(4) i { background: linear-gradient(135deg, #22d3ee, #06b6d4); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 14px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            font-size: 0.78rem;
+            color: #5f6478;
+        }
+
+        .footer .heart {
+            color: #ec4899;
+            display: inline-block;
+            animation: heartbeat 1.6s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .footer .social-links {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer .social-links a {
+            color: #5f6478;
+            transition: all 0.25s;
+            font-size: 1rem;
+            text-decoration: none;
+        }
+
+        .footer .social-links a:hover {
+            color: #c084fc;
+            transform: translateY(-2px);
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .dashboard { padding: 22px 18px 20px; border-radius: 28px; }
+            .hero { padding: 20px 22px; }
+            .banner-image-container { max-height: 250px; }
+            .hero-content h1 { font-size: 1.6rem; }
+            .hero-content p { font-size: 0.95rem; }
+            .btn-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+            .btn-card { min-height: 110px; padding: 18px 10px 16px; }
+            .btn-card .icon-wrap { width: 44px; height: 44px; }
+            .btn-card i { font-size: 1.4rem; }
+            .avatar { width: 56px; height: 56px; }
+            .profile-text h2 { font-size: 1.2rem; }
+            .header { margin-bottom: 22px; }
+        }
+
+        @media (max-width: 450px) {
+            .btn-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+            .btn-card { min-height: 100px; padding: 14px 8px 12px; }
+            .btn-card .btn-label { font-size: 0.85rem; }
+            .btn-card .btn-sub { font-size: 0.6rem; }
+            .banner-image-container { max-height: 180px; }
+            .hero-content h1 { font-size: 1.3rem; }
+            .hero-content p { font-size: 0.85rem; }
+            .dashboard { padding: 16px 12px 16px; border-radius: 20px; }
+            .status-badge { font-size: 0.7rem; padding: 4px 12px 4px 10px; }
+            .footer { flex-direction: column; align-items: center; text-align: center; gap: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="particles">
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+        <div class="particle"></div>
+    </div>
+
+    <div class="dashboard">
+        <!-- HEADER -->
+        <div class="header">
+            <div class="profile-wrap">
+                <div class="avatar"></div>
+                <div class="profile-text">
+                    <h2>ziperr22</h2>
+                    <span class="role"><i class="fas fa-code"></i> ziperr not dev</span>
+                </div>
+            </div>
+            <div class="status-badge">
+                <span class="dot"></span>
+                Ꮰ𝘇𝗶𝗽𝗲𝗿𝗿¿
+            </div>
+        </div>
+
+        <!-- HERO DENGAN BANNER GAMBAR -->
+        <div class="hero">
+            
+            <!-- BANNER GAMBAR (Ganti src dengan link foto Anda) -->
+            <div class="banner-image-container">
+                <img src="https://ziperr-img.lovable.app/i/fj9rbbe1.jpg" alt="Banner Anime">
+            </div>
+
+            <!-- TEKS DI BAWAH BANNER -->
+            <div class="hero-content">
+                <h1>✨ <span class="highlight">Mengapa</span> Saya Membuat Ini?</h1>
+                <p>
+                    Saya membangun ekosistem bot dan aplikasi ini dengan satu tujuan mulia: <i class="fas fa-hand-holding-heart"></i> 
+                    membantu para developer di luar sana agar karya dan bot mereka bisa <i class="fas fa-rocket"></i> 
+                    berkembang lebih pesat. Dengan semangat kolaborasi dan inovasi, saya <strong>ziperr</strong> 
+                    mengucapkan terima kasih yang sebesar-besarnya atas dukungan dan kepercayaan kalian semua. 
+                    Mari kita wujudkan masa depan digital yang lebih cemerlang! <i class="fas fa-star"></i>
+                </p>
+            </div>
+        </div>
+
+        <!-- BUTTON GRID -->
+        <div class="btn-grid">
+            <a href="https://t.me/memeayahhajak_bot" target="_blank" class="btn-card">
+                <div class="icon-wrap"><i class="fas fa-robot"></i></div>
+                <span class="btn-label">𝗕𝗢𝗧 𝗕𝗨𝗜𝗟𝗗</span>
+                <span class="btn-sub">𝙱𝙾𝚃 𝙱𝚄𝙸𝙻𝙳 𝙵𝙻𝙰𝚄𝚃𝙴𝚁</span>
+            </a>
+            <a href="https://t.me/ziperrimg_robot" target="_blank" class="btn-card">
+                <div class="icon-wrap"><i class="fas fa-image"></i></div>
+                <span class="btn-label">𝗕𝗢𝗧 𝗜𝗠𝗚 𝗧𝗢 𝗨𝗥𝗟</span>
+                <span class="btn-sub">𝙱𝙾𝚃 𝙸𝙼𝙶 𝚃𝙾 𝚄𝚁𝙻</span>
+            </a>
+            <a href="https://ziperr-img.lovable.app" target="_blank" class="btn-card">
+                <div class="icon-wrap"><i class="fas fa-globe"></i></div>
+                <span class="btn-label">𝗪𝗘𝗕 𝗜𝗠𝗚 𝗧𝗢 𝗨𝗥𝗟</span>
+                <span class="btn-sub">𝚆𝙴𝙱 𝙸𝙼𝙶 𝚃𝙾 𝚄𝚁𝙻</span>
+            </a>
+            <a href="https://t.me/ziperr22" target="_blank" class="btn-card">
+                <div class="icon-wrap"><i class="fab fa-telegram-plane"></i></div>
+                <span class="btn-label">𝗗𝗘𝗩𝗘𝗟𝗢𝗣𝗘𝗥</span>
+                <span class="btn-sub">𝙳𝙴𝙱𝙴𝙻𝙾𝙿𝙴𝚁 & 𝙲𝙷𝙰𝙽𝙴𝙻𝙻</span>
+            </a>
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer">
+            <span>&copy; 2026 @ziperr22 <span class="heart">❤</span></span>
+            <div class="social-links">
+                <!-- Hanya Telegram -->
+                <a href="https://t.me/ziperr22" target="_blank" title="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        console.log('@ziperr22 not dev');
+    </script>
+</body>
+</html>
